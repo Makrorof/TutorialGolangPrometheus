@@ -16,9 +16,22 @@ var totalRequests = prometheus.NewCounterVec(
 	[]string{"path"},
 )
 
+var serverCpuBasicSecondsTotalGauge = prometheus.NewGaugeVec(prometheus.GaugeOpts{
+	Name: "server_cpu_basic_seconds_total",
+	Help: "Server CPU basic",
+}, []string{"path"})
+
+var serverCpuUsageGauge = prometheus.NewGauge(prometheus.GaugeOpts{
+	Name: "server_cpu_usage",
+	Help: "Server CPU Usage",
+})
+
 func init() {
 	log.Println("Init")
+
 	prometheus.Register(totalRequests)
+	prometheus.Register(serverCpuBasicSecondsTotalGauge)
+	prometheus.Register(serverCpuUsageGauge)
 }
 
 func setMetricsHandle() {
