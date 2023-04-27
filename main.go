@@ -59,26 +59,24 @@ func main() {
 
 	go func() {
 		for {
-			time.Sleep(time.Second * 1)
-
-			totalRequests.WithLabelValues("Label").Inc()
+			time.Sleep(time.Millisecond * 500)
 			updateServerCPU()
 		}
 	}()
 
-	//for i := 0; i < 500; i++ {
-	//	go func() {
-	//		count := 0
-	//		for {
-	//			count++
-	//
-	//			if count >= 100000 {
-	//				count = 0
-	//				time.Sleep(time.Millisecond)
-	//			}
-	//		}
-	//	}()
-	//}
+	for i := 0; i < 100; i++ {
+		go func() {
+			count := 0
+			for {
+				count++
+
+				if count >= 100000 {
+					count = 0
+					time.Sleep(time.Millisecond)
+				}
+			}
+		}()
+	}
 
 	http.ListenAndServe(":9191", nil)
 }

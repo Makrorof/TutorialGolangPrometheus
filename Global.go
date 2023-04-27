@@ -8,14 +8,6 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
-var totalRequests = prometheus.NewCounterVec(
-	prometheus.CounterOpts{
-		Name: "http_requests_total",
-		Help: "Number of get requests.",
-	},
-	[]string{"path"},
-)
-
 var serverCpuBasicSecondsTotalGauge = prometheus.NewGaugeVec(prometheus.GaugeOpts{
 	Name: "server_cpu_basic_seconds_total",
 	Help: "Server CPU basic",
@@ -29,7 +21,6 @@ var serverCpuUsageGauge = prometheus.NewGauge(prometheus.GaugeOpts{
 func init() {
 	log.Println("Init")
 
-	prometheus.Register(totalRequests)
 	prometheus.Register(serverCpuBasicSecondsTotalGauge)
 	prometheus.Register(serverCpuUsageGauge)
 }
